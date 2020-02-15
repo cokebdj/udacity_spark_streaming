@@ -47,11 +47,12 @@ def run_spark_job(spark):
 
     # TODO select original_crime_type_name and disposition
     distinct_table = service_table\
-                     .select('originial_crime_type_name', 'disposition').
+                     .select('originial_crime_type_name', 'disposition')\
                      .distinct()
 
     # count the number of original crime type
-    agg_df = distinct_table
+    agg_df = distinct_table\
+             .dropna()\
              .select('originial_crime_type_name')\
              .groupby('originial_crime_type_name')\
              .agg({'originial_crime_type_name':'count'})
