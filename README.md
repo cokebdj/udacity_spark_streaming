@@ -29,9 +29,9 @@ The next parameters have been modified within the Spark Session:
 
 The results of the comparison are presented in the next graph, that represents the seconds required per task for each configuration:
 
-![Console output 4](/media/comparison.PNG)
+![Console output 5](/media/comparison.PNG)
 
-The combinations that present lower times are:
+The combinations that present lower times (in green) are:
 * 1GB 1core
 * 2GB 2cores
 * 2GB 3cores
