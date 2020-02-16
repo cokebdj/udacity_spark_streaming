@@ -32,6 +32,7 @@ def run_spark_job(spark):
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \
         .option("subscribe", "org.crime.calls") \
+        .option("startingOffsets", "earliest") \
         .load()
 
     # Show schema for the incoming resources for checks
@@ -63,7 +64,7 @@ def run_spark_job(spark):
             .writeStream\
             .format('console')\
             .outputMode('Complete')\
-            .trigger(processingTime='30 seconds')\
+            .trigger(processingTime='5 seconds')\
             .start()
 
 
@@ -97,6 +98,9 @@ if __name__ == "__main__":
     # TODO Create Spark in Standalone mode
     spark = SparkSession \
         .builder \
+        .config('spark.ui.port', 3000)\
+        .config('spark.executor.memory', '4g')\
+        .config('spark.executor.cores', '4')\
         .master("local[*]") \
         .appName("KafkaSparkStructuredStreaming") \
         .getOrCreate()
